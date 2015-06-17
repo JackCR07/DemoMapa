@@ -1,0 +1,64 @@
+<!DOCTYPE HTML><html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+html, body, #map {
+	height: 100%;
+	margin: 0px;
+	padding: 0px
+}
+#tablaCoordenadas,#botonAgregarCoord{
+	display:none
+}
+</style>
+        <title>Mapa</title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+<!--
+    			<link rel="shortcut icon" href="images/favicon.png">
+    			<link rel="apple-touch-icon" href="images/apple-touch-icon.png"> 
+    		-->
+        <link href="worklight/worklight.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <script>
+		// Define WL namespace.
+		var WL = WL ? WL : {};
+		/**
+		 * WLClient configuration variables.
+		 * Values are injected by the deployer that packs the gadget.
+		 */
+		 WL.StaticAppProps = {
+   "APP_DISPLAY_NAME": "Mapa",
+   "APP_ID": "Mapa",
+   "APP_SERVICES_URL": "\/apps\/services\/",
+   "APP_VERSION": "1.0",
+   "ENVIRONMENT": "android",
+   "LOGIN_DISPLAY_TYPE": "embedded",
+   "WORKLIGHT_NATIVE_VERSION": "2106752373",
+   "WORKLIGHT_PLATFORM_VERSION": "6.2.0.01.20141216-0427",
+   "WORKLIGHT_ROOT_URL": "\/apps\/services\/api\/Mapa\/android\/"
+};
+</script>
+		<script src="worklight/cordova.js"></script>
+		<script src="worklight/wljq.js"></script>
+		<script src="worklight/worklight.js"></script>
+		<script src="worklight/checksum.js"></script>
+		<script>
+	window.$ = window.jQuery = WLJQ;
+</script>
+    </head>
+    <body style="display: none;">
+	<!--application UI goes here-->
+        <input id="botonCoordenadas" onclick="listCoord()" type="button" value="Mostrar Coordenadas">
+	<input id="botonMapa" onclick="drawMap()" type="button" value="Mostrar Mapa">
+        <table id="tablaCoordenadas"></table>
+        <input id="botonAgregarCoord" onClick="addCoord()" type="button" value="Agregar Coordenada">
+        <div id="map"></div>
+        <script src="js/initOptions.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/messages.js"></script>
+	<script src="js/coordenadas.js"></script>
+	<script src="js/mapa.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBE3u37JtcJqo0R_nW4l-xXzaL-r4T_ALY" type="text/javascript">		
+	</script>
+    </body>
+</html>
