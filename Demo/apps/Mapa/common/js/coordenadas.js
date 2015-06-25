@@ -2,6 +2,15 @@
  * 
  */
 
+currentPage={};
+
+currentPage.init = function() {
+	WL.Logger.debug("init.. Page1...");
+};
+
+$(document).ready(function(){
+	getCoordenada(1);
+});
 function getCoordenada(indicador) {
 	var coordenada = {
 		"getCoordenada" : {
@@ -26,17 +35,15 @@ function getCoordenada(indicador) {
 	WL.Client.invokeProcedure(invocationData, options);
 }
 
-function listCoord() {
+/*function listCoord() {
 
-	document.getElementById('botonCoordenadas').style.display = "none";
-	document.getElementById('botonMapa').style.display = "none";
-	document.getElementById('tablaCoordenadas').style.display = "inline";
-	document.getElementById('botonAgregarCoord').style.display = "inline";
+	document.getElementById('Main').style.visibility = "hidden";
+	document.getElementById('coordinadas').style.visibility = "visible";
 
 	getCoordenada(1);
 
 }
-
+*/
 function getCordenadaSuccess(response) {
 	var table = document.getElementById("tablaCoordenadas");
 	var resultado = response.invocationResult.Envelope.Body.getCoordenadaResponse.resultado;
@@ -62,6 +69,13 @@ function getCordenadaSuccess(response) {
 		longitud.innerHTML = resultado.longitud;
 		descripcion.innerHTML = resultado.descripcion;
 		}
+	var fila = table.insertRow(0);
+	var latitud = fila.insertCell(0);
+	var longitud = fila.insertCell(1);
+	var descripcion = fila.insertCell(2);
+	latitud.innerHTML = "latitud";
+	longitud.innerHTML = "longitud";
+	descripcion.innerHTML ="descripcion";
 
 };
 
@@ -99,6 +113,7 @@ function getCordenadaFailure(response) {
 	console.log(response);
 };
 
+
 function addCoord() {
 
 	function onLocationSuccess(position) {
@@ -116,33 +131,19 @@ function addCoord() {
 							descripcion = results[1].formatted_address;
 							console.log(latitude + " " + longitude + " "
 									+ descripcion);
+							var table = document.getElementById("tablaCoordenadas");
+							var fila = table.insertRow(1);
+							var latitud = fila.insertCell(0);
+							var longitud = fila.insertCell(1);
+							var descripcionCell = fila.insertCell(2);
+							latitud.innerHTML = latitude;
+							longitud.innerHTML = longitude;
+							descripcionCell.innerHTML = descripcion;
+							saveCoord(latitude, longitude, descripcion);
 						}
 					}
 				});
-		var coordenada = {
-			"saveCoordenada" : {
-				"coordenada" : {
-					"descripcion" : descripcion,
-					"latitud" : latitude,
-					"longitud" : longitude
-				}
-			}
-		};
-		var headers = {
-			"SOAPAction" : "saveCoordenada"
-		}
-		var invocationData = {
-			adapter : "SoapAdapter1",
-			procedure : "CoordManageHttpService_saveCoordenada",
-			parameters : [ coordenada, headers ]
-		};
-
-		var options = {
-			onSuccess : saveCordenadaSuccess,
-			onFailure : saveCordenadaFailure
-		};
-
-		WL.Client.invokeProcedure(invocationData, options);
+		
 	}
 	;
 
@@ -150,9 +151,37 @@ function addCoord() {
 		console.log("Error occured. Code is:" + error.code);
 	}
 	;
+	
+	function saveCoord(latitude,longitude,descripcion){
+		var coordenada = {
+				"saveCoordenada" : {
+					"coordenada" : {
+						"descripcion" : descripcion,
+						"latitud" : latitude,
+						"longitud" : longitude
+					}
+				}
+			};
+			var headers = {
+				"SOAPAction" : "saveCoordenada"
+			}
+			var invocationData = {
+				adapter : "SoapAdapter1",
+				procedure : "CoordManageHttpService_saveCoordenada",
+				parameters : [ coordenada, headers ]
+			};
 
+			var options = {
+				onSuccess : saveCordenadaSuccess,
+				onFailure : saveCordenadaFailure
+			};
+
+			WL.Client.invokeProcedure(invocationData, options);
+	};
+	
 	function saveCordenadaSuccess(response) {
 		console.log(response.status);
+		
 	}
 	;
 
@@ -160,7 +189,11 @@ function addCoord() {
 		console.log(response);
 	}
 	;
+	var options={ maximumAge: 3000, timeout: 100000, enableHighAccuracy: true };
+	navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError,options);
+}
 
-	navigator.geolocation
-			.getCurrentPosition(onLocationSuccess, onLocationError);
+currentPage.back=function(){
+	WL.Logger.debug("Page1 :: back");
+	$("#container").load(pagesHistory.pop());
 }

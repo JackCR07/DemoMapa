@@ -167,4 +167,7 @@
     <feature name="WLTrusteer">
         <param name="android-package" value="com.worklight.androidgap.plugin.WLTrusteerPlugin" />
     </feature>
+    <feature name="Geolocation">
+      <param name="android-package" value="org.apache.cordova.GeoBroker" />
+  </feature>
 </widget>

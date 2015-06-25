@@ -2,16 +2,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-html, body, #map {
-	height: 100%;
-	margin: 0px;
-	padding: 0px
-}
-#tablaCoordenadas,#botonAgregarCoord{
-	display:none
-}
-</style>
 <title>Mapa</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
@@ -24,22 +14,14 @@ html, body, #map {
 	window.$ = window.jQuery = WLJQ;
 </script>
 </head>
-<body style="display: none;">
+<body class="fondo">
 	<!--application UI goes here-->
-	<input id="botonCoordenadas" type="button" value="Mostrar Coordenadas" onclick="listCoord()">
-	<input id="botonMapa" type="button" value="Mostrar Mapa" onclick="drawMap()">
-	<table id="tablaCoordenadas"></table>
-	<input id="botonAgregarCoord" type="button" value="Agregar Coordenada" onClick="addCoord()">
-	<div id="map"></div>
-	
-	
+	<div id="container" class="container4">	
+
+	</div>
+
 	<script src="js/initOptions.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/messages.js"></script>
-	<script src="js/coordenadas.js"></script>
-	<script src="js/mapa.js"></script>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBE3u37JtcJqo0R_nW4l-xXzaL-r4T_ALY">		
-	</script>
 </body>
 </html>

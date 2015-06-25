@@ -6,8 +6,12 @@
 /js/coordenadas.js
 /js/initOptions.js
 /js/main.js
+/js/mainPage.js
 /js/mapa.js
 /js/messages.js
+/pages/MainPage.html
+/pages/Page1.html
+/pages/Page2.html
 /worklight/cordova.js
 /worklight/cordova_plugins.js
 /worklight/messages/de/messages.json
